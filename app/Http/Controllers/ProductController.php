@@ -39,11 +39,11 @@ class ProductController extends Controller
     public function postUserProducts(Request $request)
     {
         $skus = $request->product_skus;
-
+        $user = $request->user_id;
         foreach ($skus as $sku){
             Purchase::create([
                 'product_sku'  => $sku,
-                'user_id'       => Auth::user()->id
+                'user_id'       => $user
             ]);
         }
 
@@ -57,9 +57,10 @@ class ProductController extends Controller
      * @param $SKU
      * @return \Illuminate\Http\JsonResponse
      */
-    public function deleteUserProduct($SKU)
+    public function deleteUserProduct($SKU, Request $request)
     {
-        $data = Purchase::where('product_sku', $SKU)->where('user_id', Auth::user()->id)->first();
+        $user = $request->user_id;
+        $data = Purchase::where('product_sku', $SKU)->where('user_id', $user)->first();
 
         if($data){
             $data->delete();
