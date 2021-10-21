@@ -18,3 +18,4 @@ I already created a collection through postman. Use this [link](https://www.getp
 - Instead of creating a new login function, we can use the Laravel Passport's  `oauth\token` endpoint to generate login token for the user.
 - We can add the necessary unit tests for the functions created or use Laravel Dusk if there is already a UI connected to this backend.
 - We can implement **Softdeletes** to models where this is necessary.
+- We can add statuses to the user and product tables to determine which data are active.
