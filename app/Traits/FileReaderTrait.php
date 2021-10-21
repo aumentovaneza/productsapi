@@ -4,6 +4,11 @@ namespace App\Traits;
 
 trait FileReaderTrait
 {
+    /**
+     * Read CSV file and convert to array
+     * @param $url
+     * @return array
+     */
     public function readCSV($url): array
     {
         // Read file into array

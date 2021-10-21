@@ -10,8 +10,14 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthenticationController extends Controller
 {
+    /**
+     * Handles the login
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(Request $request)
     {
+        // Validation
         $rules = array(
             'email'    => 'required|email',
             'password' => 'required'
@@ -28,6 +34,7 @@ class AuthenticationController extends Controller
             'password'    => $request->password
         ];
 
+        // Login
         if(Auth::attempt($userData)) {
             //generate the token for the user
             $user_login_token = Auth::user()->createToken('LaravelProductTest')->accessToken;
@@ -36,6 +43,7 @@ class AuthenticationController extends Controller
                'user' => Auth::user(),
                'accessToken' => $user_login_token
             ]], 200);
+
         } else {
             return response()->json(['success' => false, 'message' => 'Unable to login user. Please contact your administrator'], 404);
         }

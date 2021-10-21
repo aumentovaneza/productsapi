@@ -17,11 +17,14 @@ class ProductSeeder extends Seeder
     public function run()
     {
         Product::truncate();
-        $url = base_path("database/data/products.csv");
 
+        // Get the data to be seeded to the table
+        $url = base_path("database/data/products.csv");
         $productData = $this->readCSV($url);
 
+
         foreach($productData as $data){
+            // The seeded data needs to be cleaned
             Product::create([
                 'sku' => str_replace(['"','/'],'',$data['sku']),
                 'name' => str_replace(['"','/'],'',$data['name']),

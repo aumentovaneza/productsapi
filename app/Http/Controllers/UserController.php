@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    /**
+     * Retrieves user information
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getUser()
     {
         $user = User::find(Auth::user()->id);

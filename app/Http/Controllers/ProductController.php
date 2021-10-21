@@ -10,12 +10,20 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
+    /**
+     * Return all products
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getProducts(){
         $data = Product::paginate(10);
 
         return response()->json(['data' => $data, 'success' => true],200);
     }
 
+    /**
+     * Return all user product purchases
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getUserProducts()
     {
         return response()->json(['data' => new UserProductsResource(Auth::user()),
@@ -23,6 +31,11 @@ class ProductController extends Controller
                     200);
     }
 
+    /**
+     * Add products to user's purchases
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function postUserProducts(Request $request)
     {
         $skus = $request->product_skus;
@@ -39,6 +52,11 @@ class ProductController extends Controller
             200);
     }
 
+    /**
+     * Removes purcheses from user via SKU
+     * @param $SKU
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function deleteUserProduct($SKU)
     {
         $data = Purchase::where('product_sku', $SKU)->where('user_id', Auth::user()->id)->first();
